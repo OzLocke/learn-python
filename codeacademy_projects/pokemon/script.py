@@ -1,11 +1,14 @@
 import sys
+#Global variables
+# Key is "Strong against" value
+type_clash = {"water": "fire", "fire": "grass", "grass": "water"}
 
 class Pokemon:
   def __init__(self, p_name, p_level, p_type):
     self.p_name = p_name
     self.p_level = p_level
     self.p_type = p_type
-    self.p_max_health = self.p_level * 100
+    self.p_max_health = self.p_level * 10
     self.p_health = self.p_max_health
     self.p_status = {"knocked out": False, "poisoned": False, "stunned": False}
     
@@ -46,6 +49,24 @@ class Pokemon:
       self.p_status["knocked out"] = False
       self.p_health = self.p_max_health
       print("{name} was restored, they are no longer knocked out, and their health is {health}/{max_health}".format(name=self.p_name, health=self.p_health, max_health=self.p_max_health))
+
+  def deal_damage(self, target):
+    # Exit script if 
+    if target == self:
+      print("Sorry, your pokemon can't target itself!")
+      sys.exit(1)
+    # Only run if target is another pokemon
+    try:
+      #-Calculate and apply damage-
+      # Detect crits by comparing types
+      crit = type_clash[self.p_type] == target.p_type
+      # Calculate damage as 1 damage per level, doubled if crit (1 or 0 for True or False plus 1)
+      damage = (1 * self.p_level) * crit + 1
+      print("{attacker} attacks {defender}.".format(attacker=self.p_name, defender=target.p_name))
+      if crit: print("Crititcal hit!")
+      target.lose_health(damage)
+    except (TypeError, AttributeError):
+      print("Sorry, you pokemon can only target other pokemons")
 
 class FunctionsTestManual():
     def __init__(self):
