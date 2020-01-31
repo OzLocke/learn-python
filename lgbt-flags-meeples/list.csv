@@ -1,6 +1,7 @@
-subject,subject_type
-pansexual,sexuality
-genderflux,gender
-nonbinary,gender
-autigender,gender
-demisexual,sexuality
+subject,subject_type,done
+pansexual,sexuality,y
+genderflux,gender,y
+nonbinary,gender,y
+autigender,gender,y
+demisexual,sexuality,y
+test,gender,y
